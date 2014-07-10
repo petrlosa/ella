@@ -65,6 +65,8 @@ class Publishable(models.Model):
     publish_to = models.DateTimeField(_("End of visibility"), null=True, blank=True)
     static = models.BooleanField(_('static'), default=False)
 
+    priority = models.PositiveSmallIntegerField(default=1)
+
     # Last updated
     last_updated = models.DateTimeField(_('Last updated'), blank=True)
 
@@ -244,6 +246,8 @@ class Listing(models.Model):
 
     publish_from = models.DateTimeField(_("Start of listing"), db_index=True)
     publish_to = models.DateTimeField(_("End of listing"), null=True, blank=True)
+
+    priority = models.PositiveSmallIntegerField(default=1)
 
     commercial = models.BooleanField(_("Commercial"), default=False,
         help_text=_("Check this if the listing is of a commercial content."))
