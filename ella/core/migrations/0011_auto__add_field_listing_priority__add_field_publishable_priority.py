@@ -11,12 +11,12 @@ class Migration(SchemaMigration):
 
         # Adding field 'Publishable.priority'
         db.add_column(u'core_publishable', 'priority',
-                      self.gf('django.db.models.fields.PositiveSmallIntegerField')(default=1),
+                      self.gf('django.db.models.fields.PositiveSmallIntegerField')(default=1, blank=True, null=True),
                       keep_default=False)
 
         # Adding field 'Listing.priority'
         db.add_column(u'core_listing', 'priority',
-                      self.gf('django.db.models.fields.PositiveSmallIntegerField')(default=1),
+                      self.gf('django.db.models.fields.PositiveSmallIntegerField')(default=1, blank=True, null=True),
                       keep_default=False)
 
     def backwards(self, orm):
