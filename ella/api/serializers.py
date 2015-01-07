@@ -5,10 +5,13 @@ from ella.photos.models import FormatedPhoto, Photo
 from ella.core.conf import core_settings
 
 from django.core.paginator import Page, Paginator
-from django.utils import simplejson
 from django.http import Http404
 from ella.utils.timezone import to_timestamp
 
+try:
+    import json
+except ImportError:
+    from django.utils import simplejson as json
 
 
 def serialize_list(request, l):
@@ -95,7 +98,7 @@ def serialize_listing(request, listing):
     return object_serializer.serialize(request, listing.publishable)
 
 
-response_serializer.register('application/json', simplejson.dumps)
+response_serializer.register('application/json', json.dumps)
 
 
 object_serializer.register(list, serialize_list)
