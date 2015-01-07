@@ -4,7 +4,6 @@ import ella
 install_requires = [
     'setuptools>=0.6b1',
     'Django>=1.3.1',
-    'south>=0.7',
     'pytz',
     'django-appdata>=0.1.0',
 ]
