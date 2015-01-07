@@ -189,13 +189,13 @@ class Format(models.Model):
     name = models.CharField(_('Name'), max_length=80)
     max_width = models.PositiveIntegerField(_('Max width'))
     max_height = models.PositiveIntegerField(_('Max height'))
-    flexible_height = models.BooleanField(_('Flexible height'), help_text=_((
+    flexible_height = models.BooleanField(_('Flexible height'), default=False, help_text=_((
         'Determines whether max_height is an absolute maximum, or the formatted'
         'photo can vary from max_height to flexible_max_height.')))
     flexible_max_height = models.PositiveIntegerField(_('Flexible max height'),
         blank=True, null=True)
-    stretch = models.BooleanField(_('Stretch'))
-    nocrop = models.BooleanField(_('Do not crop'))
+    stretch = models.BooleanField(_('Stretch'), default=False)
+    nocrop = models.BooleanField(_('Do not crop'), default=False)
     resample_quality = models.IntegerField(_('Resample quality'),
         choices=photos_settings.FORMAT_QUALITY, default=85)
     sites = models.ManyToManyField(Site, verbose_name=_('Sites'))

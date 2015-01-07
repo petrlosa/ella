@@ -59,7 +59,7 @@ class Publishable(models.Model):
     description = models.TextField(_('Description'), blank=True)
 
     # Publish data
-    published = models.BooleanField(_('Published'))
+    published = models.BooleanField(_('Published'), default=False)
     publish_from = models.DateTimeField(_('Publish from'),
         default=core_settings.PUBLISH_FROM_WHEN_EMPTY, db_index=True)
     publish_to = models.DateTimeField(_("End of visibility"), null=True, blank=True)
