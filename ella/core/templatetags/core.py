@@ -304,7 +304,10 @@ def _parse_box(nodelist, bits):
         # var_name
         return BoxNode(bits[1], nodelist, var=template.Variable(bits[3]))
     else:
-        model = models.get_model(*bits[3].split('.'))
+        try:
+            model = models.get_model(*bits[3].split('.'))
+        except LookupError:
+            model = None
         if model is None:
             return EmptyNode()
 
