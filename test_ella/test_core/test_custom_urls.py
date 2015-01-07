@@ -32,7 +32,13 @@ def custom_view(request, context):
     return u"OK"
 
 def dummy_view(request, *args, **kwargs):
-    return HttpResponse('dummy_view:%r,%r' % (args, kwargs))
+    def str_normalization(item):
+        if isinstance(item, basestring):
+            return str(item)
+        return item
+    ar = tuple(str_normalization(a) for a in args)
+    kw = dict((k, str_normalization(v)) for k, v in kwargs.items())
+    return HttpResponse('dummy_view:%r,%r' % (ar, kw))
 
 
 class CustomObjectDetailTestCase(TestCase):

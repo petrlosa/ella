@@ -61,6 +61,8 @@ LISTINGS_REDIS = {}
 USE_REDIS_FOR_LISTINGS = True
 REDIS_LISTING_HANDLER = 'redis'
 
+TEST_RUNNER = 'django.test.runner.DiscoverRunner'
+
 DEFAULT_PAGE_ID = 1
 
 VERSION = 1

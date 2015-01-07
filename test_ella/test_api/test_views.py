@@ -1,11 +1,15 @@
-from django.utils import simplejson as json
-
 from ella.api import object_serializer, FULL
 from ella.articles.models import Article
 
 from test_ella.test_core.test_views import ViewsTestCase
 
 from nose import tools
+
+try:
+    import json
+except ImportError:
+    from django.utils import simplejson as json
+
 
 class TestCategoryDetail(ViewsTestCase):
     def test_category_is_properly_serialized(self):
