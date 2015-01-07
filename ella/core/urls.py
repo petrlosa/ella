@@ -2,6 +2,7 @@ from django.conf import settings
 from django.core.validators import slug_re
 from django.template.defaultfilters import slugify
 from django.utils.translation import ugettext_lazy as _
+from django.utils.functional import lazy
 
 try:
     from django.conf.urls import patterns, include, url
@@ -36,7 +37,7 @@ res = {
     'day': r'(?P<day>\d{1,2})',
     'rest': r'(?P<url_remainder>.+/)',
     'id': r'(?P<id>\d+)',
-    'author': slugify(_('author'))
+    'author': lazy(slugify, _('author'))
 }
 
 urlpatterns = patterns('',
