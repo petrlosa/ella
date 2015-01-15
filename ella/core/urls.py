@@ -27,6 +27,8 @@ except:
 
 from ella.core.feeds import RSSTopCategoryListings, AtomTopCategoryListings
 
+lazy_slugify = lazy(slugify, str)
+lazy_regex = lazy(lambda regex, res_dict: regex % res_dict, str)
 
 res = {
     'ct': r'(?P<content_type>[a-z][a-z0-9-]+)',
@@ -37,7 +39,7 @@ res = {
     'day': r'(?P<day>\d{1,2})',
     'rest': r'(?P<url_remainder>.+/)',
     'id': r'(?P<id>\d+)',
-    'author': lazy(slugify, _('author'))
+    'author': lazy_slugify(_('author'))
 }
 
 urlpatterns = patterns('',
@@ -45,7 +47,7 @@ urlpatterns = patterns('',
     url(r'^$', home, name="root_homepage"),
 
     # author detail
-    url(r'^%(author)s/%(slug)s/$' % res, AuthorView.as_view(), name='author_detail'),
+    url(lazy_regex(r'^%(author)s/%(slug)s/$', res), AuthorView.as_view(), name='author_detail'),
 
     # export banners
     url(r'^export/xml/(?P<name>[a-z0-9-]+)/$', 'ella.core.views.export', { 'count' : 3, 'content_type' : 'text/xml' }, name="named_export_xml"),
