@@ -1,3 +1,5 @@
+import json
+
 from ella.api import object_serializer, response_serializer, FULL
 from ella.api.conf import api_settings
 from ella.core.models import Category, Publishable, Listing, Author, Source
@@ -7,11 +9,6 @@ from ella.core.conf import core_settings
 from django.core.paginator import Page, Paginator
 from django.http import Http404
 from ella.utils.timezone import to_timestamp
-
-try:
-    import json
-except ImportError:
-    from django.utils import simplejson as json
 
 
 def serialize_list(request, l):

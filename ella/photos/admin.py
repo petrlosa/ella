@@ -1,3 +1,5 @@
+import json
+
 from django import forms
 from django.contrib import admin
 from django.conf import settings
@@ -9,11 +11,6 @@ from django.http import HttpResponse
 
 from ella.photos.models import FormatedPhoto, Format, Photo
 from ella.core.cache.utils import get_cached_object
-
-try:
-    import json
-except ImportError:
-    from django.utils import simplejson as json
 
 
 class FormatedPhotoForm(forms.BaseForm):
