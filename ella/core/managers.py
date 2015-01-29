@@ -204,9 +204,11 @@ class ListingManager(models.Manager):
         """
         self.filter(publish_to__lt=timezone.now()).delete()
 
-    def get_query_set(self, *args, **kwargs):
+    def get_queryset(self, *args, **kwargs):
         # get all the fields you typically need to render listing
-        qset = super(ListingManager, self).get_query_set(*args, **kwargs).select_related(
+        parent_obj = super(ListingManager, self)
+        qs_method = hasattr(parent_obj, 'get_queryset') and parent_obj.get_queryset or parent_obj.get_query_set
+        qset = qs_method(*args, **kwargs).select_related(
                 'publishable',
                 'publishable__category',
             )
@@ -331,6 +333,8 @@ class ListingManager(models.Manager):
         return ListingHandler(
             category, children, content_types, date_range, exclude, **kwargs
         )
+    # backward compatibility for Django < 1.6
+    get_query_set = get_queryset
 
 
 class ModelListingHandler(ListingHandler):
