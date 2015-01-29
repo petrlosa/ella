@@ -34,6 +34,18 @@ class FormatedPhotoForm(forms.BaseForm):
 class FormatForm(forms.ModelForm):
     class Meta:
         model = Format
+        fields = [
+            'name',
+            'max_width',
+            'max_height',
+            'flexible_height',
+            'flexible_max_height',
+            'stretch',
+            'nocrop',
+            'resample_quality',
+            'sites',
+            'master',
+        ]
 
     def clean(self):
         """
