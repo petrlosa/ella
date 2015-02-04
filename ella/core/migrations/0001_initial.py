@@ -8,6 +8,7 @@ import django.db.models.deletion
 import app_data.fields
 from django.conf import settings
 import ella.core.cache.fields
+from ella.utils.timezone import utc_localize
 import django.core.validators
 
 
@@ -95,7 +96,7 @@ class Migration(migrations.Migration):
                 ('slug', models.SlugField(max_length=255, verbose_name='Slug', validators=[django.core.validators.RegexValidator(re.compile('^[-a-zA-Z0-9_]+$'), "Enter a valid 'slug' consisting of letters, numbers, underscores or hyphens.", 'invalid')])),
                 ('description', models.TextField(verbose_name='Description', blank=True)),
                 ('published', models.BooleanField(default=False, verbose_name='Published')),
-                ('publish_from', models.DateTimeField(default=datetime.datetime(3000, 1, 1, 0, 0), verbose_name='Publish from', db_index=True)),
+                ('publish_from', models.DateTimeField(default=utc_localize(datetime.datetime(3000, 1, 1)), verbose_name='Publish from', db_index=True)),
                 ('publish_to', models.DateTimeField(null=True, verbose_name='End of visibility', blank=True)),
                 ('static', models.BooleanField(default=False, verbose_name='static')),
                 ('last_updated', models.DateTimeField(verbose_name='Last updated', blank=True)),
