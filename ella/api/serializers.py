@@ -10,7 +10,6 @@ from django.http import Http404
 from ella.utils.timezone import to_timestamp
 
 
-
 def serialize_list(request, l):
     return [object_serializer.serialize(request, o) for o in l]
 
@@ -62,7 +61,6 @@ def serialize_author(request, author):
     }
 
 
-
 def serialize_source(request, source):
     return {
         'name': source.name,
@@ -94,9 +92,7 @@ def serialize_publishable(request, publishable):
 def serialize_listing(request, listing):
     return object_serializer.serialize(request, listing.publishable)
 
-
 response_serializer.register('application/json', json.dumps)
-
 
 object_serializer.register(list, serialize_list)
 object_serializer.register(dict, serialize_dict)
