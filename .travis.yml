@@ -12,6 +12,7 @@ env:
   - DJANGO="1.4.1"
   - DJANGO="1.5.1"
   - DJANGO="1.6.2"
+  - DJANGO="1.7.4"
 script: python setup.py nosetests
 services:
   - redis-server
