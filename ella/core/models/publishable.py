@@ -54,6 +54,7 @@ class Publishable(models.Model):
     # Main Photo
     photo = CachedForeignKey('photos.Photo', blank=True, null=True, on_delete=models.SET_NULL,
         verbose_name=_('Photo'))
+    youtube_video = models.CharField(_('Youtube video'), blank=True, null=True, max_length=2048)
 
     # Description
     description = models.TextField(_('Description'), blank=True)
