@@ -5,30 +5,31 @@ from nose import tools
 
 from django.contrib import admin
 
-from ella.core.models import Author
-from ella.articles.models import Article
+from ella.core.models import Source
 from ella.positions.admin import PositionOptions
 from ella.positions.models import Position
+
+from test_ella.test_core import create_basic_categories, create_and_place_a_publishable
 
 
 class TestPositionAdmin(TestCase):
 
     def setUp(self):
         super(TestPositionAdmin, self).setUp()
-        self.author = Author(slug='some-author')
+        create_basic_categories(self)
+        create_and_place_a_publishable(self)
         self.position_admin = PositionOptions(model=Position, admin_site=admin.site)
 
     def test_result_of_show_title_for_obj_with_title_attr(self):
-        art = Article(title='Hello')
         p = Position()
-        p.target = art
-        tools.assert_equals(u'Hello [Article]', self.position_admin.show_title(p))
+        p.target = self.publishable
+        tools.assert_equals(u'First Article [Article]', self.position_admin.show_title(p))
 
     def test_result_of_show_title_for_obj_without_title_attr(self):
-        aut = Author(name='Hi!')
+        source = Source.objects.create(name='Hi!')
         p = Position()
-        p.target = aut
-        tools.assert_equals(u'Hi! [Author]', self.position_admin.show_title(p))
+        p.target = source
+        tools.assert_equals(u'Hi! [Source]', self.position_admin.show_title(p))
 
     def test_result_of_show_title_for_position_without_trget(self):
         p = Position()
