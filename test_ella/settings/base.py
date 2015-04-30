@@ -13,7 +13,7 @@ ADMIN_MEDIA_PREFIX = '/static/admin/'
 
 # List of callables that know how to import templates from various sources.
 TEMPLATE_LOADERS = (
-    'test_ella.template_loader.load_template_source',
+    'test_ella.template_loader.GlobalMemTemplateLoader',
 )
 
 MIDDLEWARE_CLASSES = (
