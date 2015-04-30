@@ -8,8 +8,8 @@ import ella.core.cache.fields
 class Migration(migrations.Migration):
 
     dependencies = [
+        ('core', '0002_auto_20150430_1332'),
         ('contenttypes', '0001_initial'),
-        ('core', '0001_initial'),
     ]
 
     operations = [
@@ -31,6 +31,5 @@ class Migration(migrations.Migration):
                 'verbose_name': 'Position',
                 'verbose_name_plural': 'Positions',
             },
-            bases=(models.Model,),
         ),
     ]

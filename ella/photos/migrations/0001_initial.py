@@ -34,7 +34,6 @@ class Migration(migrations.Migration):
                 'verbose_name': 'Format',
                 'verbose_name_plural': 'Formats',
             },
-            bases=(models.Model,),
         ),
         migrations.CreateModel(
             name='FormatedPhoto',
@@ -53,7 +52,6 @@ class Migration(migrations.Migration):
                 'verbose_name': 'Formated photo',
                 'verbose_name_plural': 'Formated photos',
             },
-            bases=(models.Model,),
         ),
         migrations.CreateModel(
             name='Photo',
@@ -78,13 +76,11 @@ class Migration(migrations.Migration):
                 'verbose_name': 'Photo',
                 'verbose_name_plural': 'Photos',
             },
-            bases=(models.Model,),
         ),
         migrations.AddField(
             model_name='formatedphoto',
             name='photo',
             field=models.ForeignKey(to='photos.Photo'),
-            preserve_default=True,
         ),
         migrations.AlterUniqueTogether(
             name='formatedphoto',
