@@ -262,7 +262,7 @@ class Listing(models.Model):
             return ugettext('Broken listing')
 
     def clean(self):
-        if not self.publishable:
+        if not self.publishable_id:
             return
 
         if self.publish_from and self.publish_from < self.publishable.publish_from:
