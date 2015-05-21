@@ -1,8 +1,7 @@
 from django.db.models import ObjectDoesNotExist
 from django.db.models.fields.related import ForeignKey, ReverseSingleRelatedObjectDescriptor
-from django.contrib.contenttypes.models import ContentType
 from django.contrib.contenttypes.generic import GenericForeignKey
-from django.contrib.sites.models import SITE_CACHE, Site
+from django.contrib.sites.models import SITE_CACHE
 
 from ella.core.cache.utils import get_cached_object
 
@@ -52,7 +51,7 @@ def get_site(model, pk):
         SITE_CACHE[pk] = get_cached_object(model, pk=pk)
         return SITE_CACHE[pk]
 
-SiteForeignKey = generate_fk_class('SiteForeignKey', get_site, Site)
+SiteForeignKey = generate_fk_class('SiteForeignKey', get_site, 'sites.Site')
 ContentTypeForeignKey = generate_fk_class('ContentTypeForeignKey', lambda m, pk: m._default_manager.get_for_id(pk), 'contenttypes.ContentType')
 CategoryForeignKey = generate_fk_class('CategoryForeignKey', lambda m, pk: m._default_manager.get_for_id(pk), 'core.Category')
 
