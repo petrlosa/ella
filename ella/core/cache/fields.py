@@ -1,9 +1,14 @@
 from django.db.models import ObjectDoesNotExist
 from django.db.models.fields.related import ForeignKey, ReverseSingleRelatedObjectDescriptor
-from django.contrib.contenttypes.generic import GenericForeignKey
 from django.contrib.sites.models import SITE_CACHE
 
+try:
+    from django.contrib.contenttypes.fields import GenericForeignKey
+except ImportError:  # django < 1.7
+    from django.contrib.contenttypes.generic import GenericForeignKey
+
 from ella.core.cache.utils import get_cached_object
+
 
 def generate_fk_class(name, retrieve_func, limit_to_model=None):
     class CustomForeignKey(ForeignKey):
