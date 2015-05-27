@@ -3,12 +3,11 @@ from operator import attrgetter
 from django.db import models
 from django.core.exceptions import ImproperlyConfigured
 from django.utils.encoding import smart_str
-from django.db.models.loading import get_model
 from django.conf import settings
 
 from ella.core.cache import cache_this
 from ella.core.conf import core_settings
-from ella.utils import timezone, import_module_member
+from ella.utils import timezone, import_module_member, get_model
 
 
 class PublishableManager(models.Manager):

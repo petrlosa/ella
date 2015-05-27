@@ -1,9 +1,7 @@
 from hashlib import md5
 import logging
 
-from django.dispatch import receiver
 from django.db.models import ObjectDoesNotExist
-from django.db.models.loading import get_model
 from django.db.models.signals import post_save, post_delete
 from django.core.cache import cache
 from django.core.cache.backends.dummy import DummyCache
@@ -12,6 +10,7 @@ from django.contrib.contenttypes.models import ContentType
 from django.utils.encoding import smart_str
 from django.conf import settings
 
+from ella.utils import get_model
 
 log = logging.getLogger('ella.core.cache.utils')
 

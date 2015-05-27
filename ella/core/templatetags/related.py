@@ -1,6 +1,6 @@
 from django import template
-from django.db import models
 
+from ella.utils import get_model
 from ella.core.models import Related
 
 register = template.Library()
@@ -52,12 +52,12 @@ def parse_related_tag(bits):
                 if not msm:
                     continue
                 try:
-                    mods.append(models.get_model(*msm.split('.')))
+                    mods.append(get_model(*msm.split('.')))
                 except:
                     raise template.TemplateSyntaxError, "%r doesn't represent any model." % msm
         else:
             try:
-                mods.append(models.get_model(*m.split('.')))
+                mods.append(get_model(*m.split('.')))
             except:
                 raise template.TemplateSyntaxError, "%r doesn't represent any model." % m
 
