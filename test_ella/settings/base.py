@@ -13,7 +13,7 @@ ADMIN_MEDIA_PREFIX = '/static/admin/'
 
 # List of callables that know how to import templates from various sources.
 TEMPLATE_LOADERS = (
-    'test_ella.template_loader.load_template_source',
+    'test_ella.template_loader.GlobalMemTemplateLoader',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -60,6 +60,8 @@ LISTING_HANDLERS = {
 LISTINGS_REDIS = {}
 USE_REDIS_FOR_LISTINGS = True
 REDIS_LISTING_HANDLER = 'redis'
+
+TEST_RUNNER = 'django.test.runner.DiscoverRunner'
 
 DEFAULT_PAGE_ID = 1
 

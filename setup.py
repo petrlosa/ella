@@ -4,9 +4,8 @@ import ella
 install_requires = [
     'setuptools>=0.6b1',
     'Django>=1.3.1',
-    'south>=0.7',
     'pytz',
-    'django-appdata>=0.1.0',
+    'django-appdata>=0.1.4',
 ]
 
 tests_require = [
@@ -41,7 +40,6 @@ setup(
         "License :: OSI Approved :: BSD License",
         "Operating System :: OS Independent",
         "Framework :: Django",
-        "Programming Language :: Python :: 2.5",
         "Programming Language :: Python :: 2.6",
         "Programming Language :: Python :: 2.7",
         "Operating System :: OS Independent",

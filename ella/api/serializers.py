@@ -1,4 +1,5 @@
 import json
+
 from ella.api import object_serializer, response_serializer, FULL
 from ella.api.conf import api_settings
 from ella.core.models import Category, Publishable, Listing, Author, Source
@@ -93,6 +94,9 @@ def serialize_listing(request, listing):
     return object_serializer.serialize(request, listing.publishable)
 
 response_serializer.register('application/json', json.dumps)
+
+response_serializer.register('application/json', json.dumps)
+
 
 object_serializer.register(list, serialize_list)
 object_serializer.register(dict, serialize_dict)

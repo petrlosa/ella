@@ -1,16 +1,20 @@
 from django.db.models import ObjectDoesNotExist
 from django.db.models.fields.related import ForeignKey, ReverseSingleRelatedObjectDescriptor
-from django.contrib.contenttypes.models import ContentType
-from django.contrib.contenttypes.generic import GenericForeignKey
-from django.contrib.sites.models import SITE_CACHE, Site
+from django.contrib.sites.models import SITE_CACHE
+
+try:
+    from django.contrib.contenttypes.fields import GenericForeignKey
+except ImportError:  # django < 1.7
+    from django.contrib.contenttypes.generic import GenericForeignKey
 
 from ella.core.cache.utils import get_cached_object
+
 
 def generate_fk_class(name, retrieve_func, limit_to_model=None):
     class CustomForeignKey(ForeignKey):
         def __init__(self, *args, **kwargs):
             if limit_to_model:
-                args = (limit_to_model,) + args
+                kwargs['to'] = limit_to_model
             super(CustomForeignKey, self).__init__(*args, **kwargs)
 
         def contribute_to_class(self, cls, name):
@@ -52,8 +56,8 @@ def get_site(model, pk):
         SITE_CACHE[pk] = get_cached_object(model, pk=pk)
         return SITE_CACHE[pk]
 
-SiteForeignKey = generate_fk_class('SiteForeignKey', get_site, Site)
-ContentTypeForeignKey = generate_fk_class('ContentTypeForeignKey', lambda m, pk: m._default_manager.get_for_id(pk), ContentType)
+SiteForeignKey = generate_fk_class('SiteForeignKey', get_site, 'sites.Site')
+ContentTypeForeignKey = generate_fk_class('ContentTypeForeignKey', lambda m, pk: m._default_manager.get_for_id(pk), 'contenttypes.ContentType')
 CategoryForeignKey = generate_fk_class('CategoryForeignKey', lambda m, pk: m._default_manager.get_for_id(pk), 'core.Category')
 
 class CachedGenericForeignKey(GenericForeignKey):

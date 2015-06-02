@@ -7,6 +7,7 @@ from django.utils.safestring import mark_safe
 from django.template.defaultfilters import stringfilter
 from django.contrib.contenttypes.models import ContentType
 
+from ella.utils import get_model
 from ella.core.models import Listing, Category
 from ella.core.managers import ListingHandler
 from ella.core.cache.utils import get_cached_object
@@ -115,7 +116,7 @@ def listing_parse(input):
 
             l = []
             for mod in ''.join(mods).split(','):
-                m = models.get_model(*mod.split('.'))
+                m = get_model(*mod.split('.'))
                 if m is None:
                     raise template.TemplateSyntaxError, "%r tag cannot list objects of unknown model %r" % (input[0], mod)
                 l.append(ContentType.objects.get_for_model(m))
@@ -304,7 +305,10 @@ def _parse_box(nodelist, bits):
         # var_name
         return BoxNode(bits[1], nodelist, var=template.Variable(bits[3]))
     else:
-        model = models.get_model(*bits[3].split('.'))
+        try:
+            model = get_model(*bits[3].split('.'))
+        except LookupError:
+            model = None
         if model is None:
             return EmptyNode()
 

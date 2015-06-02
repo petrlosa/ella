@@ -29,6 +29,16 @@ It is composed from several modules:
 * Caching-friendly
 * Well tested
 * Proven in production environment
+
+Django < 1.7
+************
+
+For use with django < 1.7 use south >= 1.0.0 or 
+set SOUTH_MIGRATION_MODULES setting for ella modules 
+to south_migrations directory (south >= 1.0.0 looks to south_migrations directory by default).
+
+If you need migrate your project from ella 2.x to ella 3.x use django < 1.7 and south, 
+then migrate your project and then you can upgrade to django 1.7 or higher.
     
 News
 ****

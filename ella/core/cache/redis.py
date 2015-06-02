@@ -6,11 +6,11 @@ from hashlib import md5
 from itertools import chain
 
 from django.conf import settings
-from django.db.models.loading import get_model
 
 from ella.core.cache.utils import get_cached_objects, SKIP
 from ella.core.managers import ListingHandler
 from ella.core.conf import core_settings
+from ella.utils import get_model
 from ella.utils.timezone import now, to_timestamp, from_timestamp
 
 log = logging.getLogger('ella.core')

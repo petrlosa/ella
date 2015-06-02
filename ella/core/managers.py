@@ -3,12 +3,11 @@ from operator import attrgetter
 from django.db import models
 from django.core.exceptions import ImproperlyConfigured
 from django.utils.encoding import smart_str
-from django.db.models.loading import get_model
 from django.conf import settings
 
 from ella.core.cache import cache_this
 from ella.core.conf import core_settings
-from ella.utils import timezone, import_module_member
+from ella.utils import timezone, import_module_member, get_model
 
 
 class PublishableManager(models.Manager):
@@ -204,9 +203,11 @@ class ListingManager(models.Manager):
         """
         self.filter(publish_to__lt=timezone.now()).delete()
 
-    def get_query_set(self, *args, **kwargs):
+    def get_queryset(self, *args, **kwargs):
         # get all the fields you typically need to render listing
-        qset = super(ListingManager, self).get_query_set(*args, **kwargs).select_related(
+        parent_obj = super(ListingManager, self)
+        qs_method = hasattr(parent_obj, 'get_queryset') and parent_obj.get_queryset or parent_obj.get_query_set
+        qset = qs_method(*args, **kwargs).select_related(
                 'publishable',
                 'publishable__category',
             )
@@ -331,6 +332,8 @@ class ListingManager(models.Manager):
         return ListingHandler(
             category, children, content_types, date_range, exclude, **kwargs
         )
+    # backward compatibility for Django < 1.6
+    get_query_set = get_queryset
 
 
 class ModelListingHandler(ListingHandler):

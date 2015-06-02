@@ -2,7 +2,6 @@ from datetime import datetime, timedelta
 
 from django.conf import settings
 from django.contrib.contenttypes.models import ContentType
-from django.db import models
 from django.http import Http404
 from django.shortcuts import redirect, render
 from django.template.defaultfilters import slugify
@@ -16,6 +15,7 @@ from ella.core import custom_urls
 from ella.core.conf import core_settings
 from ella.core.signals import object_rendering, object_rendered
 from ella.api import render_as_api
+from ella.utils import get_models
 from ella.utils.timezone import now, localize
 
 __docformat__ = "restructuredtext en"
@@ -435,7 +435,7 @@ def get_content_type(ct_name):
     try:
         ct = CONTENT_TYPE_MAPPING[ct_name]
     except KeyError:
-        for model in models.get_models():
+        for model in get_models():
             if ct_name == slugify(model._meta.verbose_name_plural):
                 ct = ContentType.objects.get_for_model(model)
                 CONTENT_TYPE_MAPPING[ct_name] = ct

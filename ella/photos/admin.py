@@ -1,9 +1,10 @@
 import json
+
 from django import forms
 from django.contrib import admin
 from django.conf import settings
 from django.utils.translation import ugettext
-from django.forms.util import ValidationError
+from django.core.exceptions import ValidationError
 from django.utils.translation import ugettext_lazy as _
 from django.utils.safestring import mark_safe
 from django.http import HttpResponse
@@ -33,6 +34,18 @@ class FormatedPhotoForm(forms.BaseForm):
 class FormatForm(forms.ModelForm):
     class Meta:
         model = Format
+        fields = [
+            'name',
+            'max_width',
+            'max_height',
+            'flexible_height',
+            'flexible_max_height',
+            'stretch',
+            'nocrop',
+            'resample_quality',
+            'sites',
+            'master',
+        ]
 
     def clean(self):
         """

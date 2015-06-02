@@ -5,10 +5,10 @@ from test_ella.cases import RedisTestCase as TestCase
 from nose import tools
 
 from django.http import Http404
-from django.db.models import get_models
 from django.contrib.contenttypes.models import ContentType
 from django.template.defaultfilters import slugify
 
+from ella.utils import get_models
 from ella.core.views import ObjectDetail, get_content_type, ListContentType
 from ella.core.models import Listing, Publishable
 

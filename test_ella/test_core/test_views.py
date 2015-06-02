@@ -159,7 +159,7 @@ class TestObjectDetailTemplateOverride(ViewsTestCase):
     def setUp(self):
         super(TestObjectDetailTemplateOverride, self).setUp()
         publ = self.publishable
-        ct = publ._meta.app_label + '.' + publ._meta.module_name
+        ct = '%s.%s' % ContentType.objects.get_for_model(publ).natural_key()
 
         self.templates = (
             'page/object.html',

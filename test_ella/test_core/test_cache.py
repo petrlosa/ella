@@ -24,7 +24,7 @@ from nose import tools
 class CacheTestCase(TestCase):
     def setUp(self):
         self.old_cache = utils.cache
-        self.cache = get_cache('locmem://')
+        self.cache = get_cache('locmem')
         utils.cache = self.cache
         super(CacheTestCase, self).setUp()
 
