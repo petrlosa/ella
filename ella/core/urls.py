@@ -33,7 +33,7 @@ lazy_regex = lazy(lambda regex, res_dict: regex % res_dict, str)
 res = {
     'ct': r'(?P<content_type>[a-z][a-z0-9-]+)',
     'cat': r'(?P<category>(?:(?:[0-9]+[^0-9-]|[a-z])[a-z0-9-]*/)*(?:[0-9]+[^0-9-]|[a-z])[a-z0-9-]*)',
-    'slug': r'(?P<slug>%s)' % slug_re.pattern.strip('^$'),
+    'slug': r'(?P<slug>%s)' % slug_re.pattern.strip('^$\Z'),
     'year': r'(?P<year>\d{4})',
     'month': r'(?P<month>\d{1,2})',
     'day': r'(?P<day>\d{1,2})',
